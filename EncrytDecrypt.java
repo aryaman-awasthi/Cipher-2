@@ -1,36 +1,39 @@
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+/*import java.io.BufferedReader;
+import java.io.InputStreamReader;*/
+import java.util.ArrayList;
+import java.util.List;
 
 class EncryptDecrypt {
     private static  final String UNICODE_FORMAT = "UTF-8";
     public static void main(String[] args) throws Exception
     {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        String data = bufferedReader.readLine();
-        System.out.println("Original: "+data);
+        /*BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        /*String data = bufferedReader.readLine();
+        /*System.out.println("Original: "+data);
         EncryptDecrypt encryptDecrypt = new EncryptDecrypt();
-        encryptDecrypt.encryptDecrypt(data);
+        System.out.println(encryptDecrypt.encrypt(data));*/
     }
-    public void encryptDecrypt(String DATA)
+    public List<key> encrypt(String DATA)
     {
         try
         {
-            
-            SecretKey key = generateKey("AES");
+            SecretKey secrKey = generateKey("AES");
             Cipher cipher = Cipher.getInstance("AES");
-
-            byte[] encryptedData = encryptString(DATA, key,cipher);
+            byte[] encryptedData = encryptString(DATA, secrKey,cipher);
             String encryptedString = new String(encryptedData);
-            System.out.println("Encrypted: "+encryptedString);
-            String decryptedString = decryptString(encryptedData, key,cipher);
-            System.out.println("Decrypted: "+decryptedString);
+            List<key> list = new ArrayList<key>();
+            list.add(new key(encryptedString, cipher, secrKey, encryptedData));
+            return list;
         }
         catch (Exception e)
         {
-            System.out.println(e);
+            List<key> list = new ArrayList<key>();
+            list.add(new key(e));
+            return list;
+            
         }
 
     }
@@ -48,7 +51,6 @@ class EncryptDecrypt {
             return null;
         }
     }
-
     public static byte[] encryptString(String dataToEncrypt, SecretKey secretKey, Cipher cipher)
     {
         try {
