@@ -18,6 +18,12 @@ class EncryptDecrypt {
     {
         try
         {
+            /**
+             * Encryption type changed by Aryaman A.
+             * AES -> DES
+             * Branch: feature1
+             * Master branch: No change
+             */
             SecretKey key = generateKey("DES");
             Cipher cipher = Cipher.getInstance("DES");
 
