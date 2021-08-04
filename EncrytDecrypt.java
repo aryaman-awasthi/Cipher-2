@@ -18,8 +18,8 @@ class EncryptDecrypt {
     {
         try
         {
-            SecretKey key = generateKey("DES");
-            Cipher cipher = Cipher.getInstance("DES");
+            SecretKey key = generateKey("AES");
+            Cipher cipher = Cipher.getInstance("AES");
 
             byte[] encryptedData = encryptString(DATA, key,cipher);
             String encryptedString = new String(encryptedData);
